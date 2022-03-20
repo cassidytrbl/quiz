@@ -5,7 +5,9 @@ var questionEl = document.getElementById ('question')
 var answerEl1 = document.getElementById ('answer1')
 var answerEl2 = document.getElementById ('answer2')
 var answerEl3 = document.getElementById ('answer3')
-var secondsLeft = 90
+var next = document.getElementById ('nextQuestion')
+var inncorrectAnswer = document.querySelector('.timer')
+var secondsLeft = 120
 var questionNumber = 0
 var correctAnswers = 0
 timerEl.textContent = secondsLeft;
@@ -13,20 +15,31 @@ timerEl.textContent = secondsLeft;
 function startQuiz () {
     buildQuiz();
     setTime ();
+    begin.style.display = "none";
 }
 
 function buildQuiz(){
-    // Show the questions starting with the first one
     quizArea.style.display = "block"
     questionEl.textContent = myQuestions[questionNumber].question
     answerEl1.textContent = myQuestions[questionNumber].answers.a
     answerEl2.textContent = myQuestions[questionNumber].answers.b
     answerEl3.textContent = myQuestions[questionNumber].answers.c
+    correctAnswers = correctAnswers + 1
     
 }
 
-// every time an answer is clicked on record if it was as correct  answer: correctAnsers = correctAnswers + 1
-// add  eventlisteners to the answers that  checks if a  corrent answer was cliked on and   then  move the the next  question: questionNumber = questionNumber + 1
+function nextQuestion(){
+    questionEl.textContent = myQuestions[questionNumber].question
+    answerEl1.textContent = myQuestions[questionNumber].answers.a
+    answerEl2.textContent = myQuestions[questionNumber].answers.b
+    answerEl3.textContent = myQuestions[questionNumber].answers.c
+    correctAnswers = correctAnswers + 1
+}
+
+function showResults () {
+
+}
+
 // display the  next question
 function setTime() {
     var timerInterval = setInterval (function() {
@@ -89,5 +102,10 @@ const myQuestions = [
     },
 ]
     begin.addEventListener('click', startQuiz);
-    begin.style.display = "none";
-    secondsLeft.style.display ="none";
+    // add  eventlisteners to the answers that  checks if a  corrent answer was cliked on and   then  move the the next  question: questionNumber = questionNumber + 1
+    nextQuestion.addEventListener("click", () => {
+        questionText.innerHTML=questions[qi].question;
+        displayOptions();
+    });
+
+    correctAnswers.addEventListener('click', nextQuestion);
