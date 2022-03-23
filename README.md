@@ -1,1 +1,1 @@
-'begins' is the start button that disappears one clicked until the page is refreshed then the timer starts to countdown and the first question is loaded with the answers.
+the application mainly uses javascript to ask the user questions then keep score of the correct and incorrect answers. 

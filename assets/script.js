@@ -6,7 +6,6 @@ var answerEl1 = document.getElementById ('answer1')
 var answerEl2 = document.getElementById ('answer2')
 var answerEl3 = document.getElementById ('answer3')
 var next = document.getElementById ('nextQuestion')
-var inncorrectAnswer = document.querySelector('.timer')
 var secondsLeft = 120
 var questionNumber = 0
 var correctAnswers = 0
@@ -25,15 +24,39 @@ function buildQuiz(){
     answerEl2.textContent = myQuestions[questionNumber].answers.b
     answerEl3.textContent = myQuestions[questionNumber].answers.c
     correctAnswers = correctAnswers + 1
-    
+    displayNextQuestion ()
 }
 
-function nextQuestion(){
+function displayNextQuestion(){
     questionEl.textContent = myQuestions[questionNumber].question
     answerEl1.textContent = myQuestions[questionNumber].answers.a
     answerEl2.textContent = myQuestions[questionNumber].answers.b
     answerEl3.textContent = myQuestions[questionNumber].answers.c
     correctAnswers = correctAnswers + 1
+}
+
+function rightAnswer() {
+    var correctEl = onAnswer();
+    correctEl.innerHTML = "Correct!";
+    currentQuestion += 1;
+    score += 1;
+
+}
+
+function wrongAnswer() {
+    var incorrectEl = onAnswer();
+    var timeLost = 10;
+    incorrectEl.innerHTML = "Incorrect!";
+    currentQuestion += 1;
+    if (secondsLeft <= timeLost) {
+      secondsLeft = 1;
+    } else {
+      secondsLeft -= timeLost;
+    }
+  
+}
+function endGame(headerMessage) {
+    var endMessage
 }
 
 function showResults () {
@@ -54,13 +77,13 @@ function setTime() {
     }, 1000);
 }
 
-const myQuestions = [
+let myQuestions = [
     {
         question: "What are the Little Twin Stars names?",
         answers: {
-            a: "Nana and Hachi",
-            b: "Kiki and Lala",
-            c: "Blue and Pink"
+            a: "Nana and Hachi", isCorrect: false,
+            b: "Kiki and Lala", isCorrect: true,
+            c: "Blue and Pink", isCorrect: false,
         },
         correctAnswer: "b"
     },
@@ -101,11 +124,11 @@ const myQuestions = [
         correctAnswer: "b"
     },
 ]
-    begin.addEventListener('click', startQuiz);
+begin.addEventListener('click', startQuiz);
     // add  eventlisteners to the answers that  checks if a  corrent answer was cliked on and   then  move the the next  question: questionNumber = questionNumber + 1
-    nextQuestion.addEventListener("click", () => {
+nextQuestion.addEventListener("click", () => {
         questionText.innerHTML=questions[qi].question;
         displayOptions();
     });
 
-    correctAnswers.addEventListener('click', nextQuestion);
+correctAnswers.addEventListener('click', nextQuestion);
