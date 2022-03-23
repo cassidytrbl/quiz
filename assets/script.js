@@ -5,11 +5,17 @@ var questionEl = document.getElementById ('question')
 var answerEl1 = document.getElementById ('answer1')
 var answerEl2 = document.getElementById ('answer2')
 var answerEl3 = document.getElementById ('answer3')
-var next = document.getElementById ('nextQuestion')
-var secondsLeft = 120
+var secondsLeft = 90
 var questionNumber = 0
 var correctAnswers = 0
 timerEl.textContent = secondsLeft;
+
+// new
+var results = document.getElementById('results')
+var finalScore = document.getElementById('finalScore')
+var endOfQuizMessage = document.getElementById('endOfQuizMessage')
+var lastAnswer = "";
+var timerInterval = "";
 
 function startQuiz () {
     buildQuiz();
@@ -18,72 +24,45 @@ function startQuiz () {
 }
 
 function buildQuiz(){
+    // Show the questions starting with the first one
     quizArea.style.display = "block"
     questionEl.textContent = myQuestions[questionNumber].question
     answerEl1.textContent = myQuestions[questionNumber].answers.a
     answerEl2.textContent = myQuestions[questionNumber].answers.b
     answerEl3.textContent = myQuestions[questionNumber].answers.c
-    correctAnswers = correctAnswers + 1
-    displayNextQuestion ()
-}
-
-function displayNextQuestion(){
-    questionEl.textContent = myQuestions[questionNumber].question
-    answerEl1.textContent = myQuestions[questionNumber].answers.a
-    answerEl2.textContent = myQuestions[questionNumber].answers.b
-    answerEl3.textContent = myQuestions[questionNumber].answers.c
-    correctAnswers = correctAnswers + 1
-}
-
-function rightAnswer() {
-    var correctEl = onAnswer();
-    correctEl.innerHTML = "Correct!";
-    currentQuestion += 1;
-    score += 1;
-
-}
-
-function wrongAnswer() {
-    var incorrectEl = onAnswer();
-    var timeLost = 10;
-    incorrectEl.innerHTML = "Incorrect!";
-    currentQuestion += 1;
-    if (secondsLeft <= timeLost) {
-      secondsLeft = 1;
-    } else {
-      secondsLeft -= timeLost;
-    }
-  
-}
-function endGame(headerMessage) {
-    var endMessage
+    // remove correct answer + 1
 }
 
 function showResults () {
-
+    // display results and hide quiz
+    quizArea.style.display = "none"
+    results.style.display = "block"
+    finalScore.textContent = "Your final score is " + correctAnswers + " out of " + myQuestions.length;
 }
 
 // display the  next question
 function setTime() {
-    var timerInterval = setInterval (function() {
+    // remove var and declare variable on the top
+    timerInterval = setInterval (function() {
         secondsLeft = secondsLeft - 1;
         timerEl.textContent = secondsLeft + " Seconds until Time is Up!";
-        
+
         if(secondsLeft === 0) {
             clearInterval(timerInterval);
-            // When the timer runs out end the quiz
-            // sendMessage();
+
+            // call function for timeout
+            endQuizOnTimeout();
         }
     }, 1000);
 }
 
-let myQuestions = [
+const myQuestions = [
     {
         question: "What are the Little Twin Stars names?",
         answers: {
-            a: "Nana and Hachi", isCorrect: false,
-            b: "Kiki and Lala", isCorrect: true,
-            c: "Blue and Pink", isCorrect: false,
+            a: "Nana and Hachi",
+            b: "Kiki and Lala",
+            c: "Blue and Pink"
         },
         correctAnswer: "b"
     },
@@ -124,11 +103,50 @@ let myQuestions = [
         correctAnswer: "b"
     },
 ]
-begin.addEventListener('click', startQuiz);
-    // add  eventlisteners to the answers that  checks if a  corrent answer was cliked on and   then  move the the next  question: questionNumber = questionNumber + 1
-nextQuestion.addEventListener("click", () => {
-        questionText.innerHTML=questions[qi].question;
-        displayOptions();
-    });
 
-correctAnswers.addEventListener('click', nextQuestion);
+begin.addEventListener('click', startQuiz);
+
+
+// new functions and listeners
+
+function evaluateAnswer() {
+    if (lastAnswer === myQuestions[questionNumber].correctAnswer) {
+        correctAnswers = correctAnswers + 1
+    }
+}
+
+function endQuiz() {
+    clearInterval(timerInterval);
+    timerEl.textContent = "Your time: " + secondsLeft + " Seconds left.";
+    showResults();
+}
+
+function endQuizOnTimeout() {
+    endOfQuizMessage.textContent = "You ran out of time! " + (questionNumber + 1) + " out of " + myQuestions.length + " answered.";
+    showResults();
+}
+
+function nextQuestion() {
+    questionNumber += 1;
+    if (questionNumber >= myQuestions.length) {
+        endQuiz();
+    } else {
+        buildQuiz();
+    }
+}
+
+answerEl1.addEventListener('click', function() {
+    lastAnswer = "a";
+    evaluateAnswer();
+    nextQuestion();
+})
+answerEl2.addEventListener('click', function() {
+    lastAnswer = "b";
+    evaluateAnswer();
+    nextQuestion();
+})
+answerEl3.addEventListener('click', function() {
+    lastAnswer = "c";
+    evaluateAnswer();
+    nextQuestion();
+})
