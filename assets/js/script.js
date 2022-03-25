@@ -39,6 +39,7 @@ function showResults () {
     quizArea.style.display = "none"
     results.style.display = "block"
     finalScore.textContent = "Your final score is " + correctAnswers + " out of " + myQuestions.length;
+
 }
 
 // display the  next question
