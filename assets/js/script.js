@@ -14,6 +14,7 @@ timerEl.textContent = secondsLeft;
 var results = document.getElementById('results')
 var finalScore = document.getElementById('finalScore')
 var endOfQuizMessage = document.getElementById('endOfQuizMessage')
+var highScoresEl = document.getElementById('highScoreButton');
 var lastAnswer = "";
 var timerInterval = "";
 
@@ -104,8 +105,43 @@ const myQuestions = [
     },
 ]
 
-begin.addEventListener('click', startQuiz);
+function displayScores() {
+    if (isRunning) {
+      alert("You can't view scores during the quiz.");
+    } else {
+      var scores = JSON.parse(localStorage.getItem("highScores"));
+  
+      console.log(scores);
+      
+      clearScreen();
+      headerEl.textContent = "Top 5 High Scores:";
+  
+      // Displays top 5 or fewer scores
+      if (scores === null) {
+  
+      } else if (scores.length >= 5) {
+        for (let i = 0; i < 5; i++) {
+          var text = i+1 + ". " + scores[i].name + " - " + scores[i].storedScore;
+          var scoreEl = document.createElement("h3");
+          scoreEl.innerHTML = text;
+          scoreEl.classList.add("highScore");
+          holderEl.appendChild(scoreEl);
+        }
+      } else {
+        for (let i = 0; i < scores.length; i++) {
+          var text = i+1 + ". " + scores[i].name + " - " + scores[i].storedScore;
+          var scoreEl = document.createElement("h3");
+          scoreEl.innerHTML = text;
+          scoreEl.classList.add("highScore");
+          holderEl.appendChild(scoreEl);
+        }
+      }
 
+    }
+}
+
+begin.addEventListener('click', startQuiz);
+highScoresEl.addEventListener("click", displayScores);
 
 // new functions and listeners
 

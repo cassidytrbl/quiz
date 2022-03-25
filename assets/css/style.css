@@ -51,3 +51,21 @@ div {
   font-size: 20px;
   font-family: sans-serif;
 }
+
+.title {
+  color: aliceblue;
+  font-size: 20px;
+  font-family: sans-serif;
+}
+
+.highScoresButton {
+  color: aliceblue;
+  font-size: 10px;
+  font-family: sans-serif;
+}
+
+.LeaderBoard {
+  color: aliceblue;
+  font-size: 20px;
+  font-family: sans-serif;
+}
