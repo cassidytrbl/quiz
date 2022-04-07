@@ -10,20 +10,31 @@
 <body>
     <h1> Welcome to the Sanrio Quiz</h1>
     <div class="container">
-        <button id = "beginButton">Begin</button>
-        
-        <section class = "timer"></section>
-        <section id="quizArea" style="display: none;">
-            <p id="question"></p>
-            <p id="answer1" class="answer"></p>
-            <p id="answer2" class="answer"></p>
-            <p id="answer3" class="answer"></p>
-        </section>
-         <button id="highScoreButton"> View High Scores</button>   
-        <section id="results" style="display: none;">
-            <h2 id="endOfQuizMessage"></h2>
-            <h2 id="finalScore"></h2>
-        </section>
+        <div id="containerTwo">
+            <button id = "beginButton">Begin</button>
+            
+            <section class = "timer"></section>
+            <section id="quizArea" style="display: none;">
+                <p id="question"></p>
+                <p id="answer1" class="answer"></p>
+                <p id="answer2" class="answer"></p>
+                <p id="answer3" class="answer"></p>
+            </section>
+            <button id="highScoreButton"> View High Scores</button>   
+            <section id="results" style="display: none;">
+                <h2 id="endOfQuizMessage"></h2>
+                <form id="form">
+                    <textarea id="usermsg"></textarea>
+                    <button type="Submit">Submit</button>
+                </form>
+                <h2 id="finalScore"></h2>
+            
+            </section>
+        </div>
+        <div id="containerThree">
+            <h2>Leaderboard</h2>
+            <div id="board"></div>
+        </div>
     </div>
     <script src="./assets/js/script.js"></script>
     

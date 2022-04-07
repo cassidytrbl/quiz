@@ -1,5 +1,5 @@
 body {
-  font-family:  sans-serif;
+  font-family: sans-serif;
   background-color: rgba(207, 56, 169, 0.192);
 }
 
@@ -15,7 +15,7 @@ h1 {
   margin: 60px auto;
   text-align: center;
   font-size: 30px;
-  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
   transition: 0.3s;
   width: 80vw;
   background-color: #001b44;
@@ -35,7 +35,7 @@ h1 {
   display: block;
   text-align: center;
   font-size: 30px;
-  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
   transition: 0.3s;
   width: 80vw;
   background-color: #001b44;
@@ -68,4 +68,8 @@ div {
   color: aliceblue;
   font-size: 20px;
   font-family: sans-serif;
+}
+
+.hidden {
+  display: none;
 }
