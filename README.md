@@ -1,2 +1,2 @@
-the application mainly uses javascript to ask the user questions then keep score of the correct and incorrect answers.
+the application mainly uses javascript to ask the user questions then keep score of the correct and incorrect answers. when the incorrect answer is clicked then the timer minus 10 seconds from the timer. at the end of the quiz the user can write their name and score to save on the leaderboard which is used by the local storage by pressing the submit button and then leaderboard button.
 https://cassidytrbl.github.io/quiz/
